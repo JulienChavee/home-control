@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<div id="widgetListContainer" class="container mt-3">
+</div>
+{% endblock %}
+
+{% block javascripts_start %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('controller_home') }}
+{% endblock %}

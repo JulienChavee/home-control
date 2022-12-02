@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <title>{% block title %}Domotic controller{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts_start %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('common') }}
+    {% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+{% block menu %}
+{#    {% include 'menu.html.twig' %}#}
+{% endblock %}
+
+<main role="main" class="container-fluid g-0 pb-5 bg-em-light-blue flex-grow-1">
+    {% block alerts %}{% include 'alert.html.twig' %}{% endblock %}
+    {% block body %}{% endblock %}
+</main>
+
+{% block modals %}
+    <div id="modal-yes-no" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'general.actions.confirm' | trans }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">{{ 'general.actions.no' | trans }}</button>
+                    <button type="button" class="btn btn-outline-success" data-action="validate">{{ 'general.actions.yes' | trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block toasts %}
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3">
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}
+</body>
+
+{% block javascripts_end %}
+{% endblock %}
 </html>
